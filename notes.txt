@@ -10,6 +10,7 @@ Các ID quan trọng:
   - UpdateCap ID: 0xe8197024ea91374b33971b1ee8cba3d2cfe50840ad879f2a9833e54ee76b4b2c
 
 Các lệnh Terminal thường dùng:
+
   - Build sui: sui move build
   - Kiểm tra Object: sui client object <OBJECT_ID>
   - Xem ví hiện tại: sui client active-address
@@ -23,7 +24,7 @@ Các lệnh Terminal thường dùng:
     sui client call --package <PACKAGE_ID> --module scoring --function create_profile --args "B21DCCN123" --gas-budget 10000000
   - Kiểm tra danh sách sinh viên trong lớp 
     sui client dynamic-field <CLASSROOM_ID>
-    
+
 Các lệnh git
 
   - Pull lấy code mới về máy: git pull origin main
