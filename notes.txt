@@ -1,0 +1,22 @@
+Ghi chú Dự án Sui và ID quan trọng
+Thông tin quan trọng dự án Sui
+
+Các ID quan trọng:
+
+  - Package ID: 0x1f19f2a99c96191c7f474939c369e637894a472c295710609653765e94b05596
+  - AdminCap ID: 0xf326620556216892520626359286460111977792691509930922619794567222
+  - Test Student Profile ID: 0x9e81268d01dd7777601a7df74b5773e24bf8007e05555b9f8e14cbffa1a334a6
+
+Các lệnh Terminal thường dùng:
+
+  - Kiểm tra Object: sui client object <OBJECT_ID>
+  - Gọi hàm add_score: sui client call --package <PACKAGE_ID> --module student_management --function add_score --args <ADMIN_CAP_ID> <STUDENT_ID> 10 --gas-budget 10000000
+  - Xem ví hiện tại: sui client active-address
+
+Các lệnh git
+
+  - Pull lấy code mới về máy: git pull origin main
+  - Commit code (nhớ pull trước khi push):
+    git add .
+    git commit -m "<miêu tả thay đổi, cập nhật tính năng>"
+    git push
