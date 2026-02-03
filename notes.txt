@@ -3,16 +3,27 @@ Thông tin quan trọng dự án Sui
 
 Các ID quan trọng:
 
-  - Package ID: 0x1f19f2a99c96191c7f474939c369e637894a472c295710609653765e94b05596
-  - AdminCap ID: 0xf326620556216892520626359286460111977792691509930922619794567222
-  - Test Student Profile ID: 0x9e81268d01dd7777601a7df74b5773e24bf8007e05555b9f8e14cbffa1a334a6
+  - Package ID: 0x9cf5226cd6ea026ef55c4879c37010ba0d8a43eee0f352a0da5541122ebe35dc
+  - AdminCap ID: 0x889877c24c1862f0b1ee0f13c83d68d3732f0a9390d502fa0a85579867bd20a0
+  - ClassRoom ID: 0xe83154c59c362c3b093c03487f37389a831a52496ffb0e8c7efb016484d56ecf
+  - Clock ID: 0x6
+  - UpdateCap ID: 0xe8197024ea91374b33971b1ee8cba3d2cfe50840ad879f2a9833e54ee76b4b2c
 
 Các lệnh Terminal thường dùng:
   - Build sui: sui move build
   - Kiểm tra Object: sui client object <OBJECT_ID>
-  - Gọi hàm add_score: sui client call --package <PACKAGE_ID> --module student_management --function add_score --args <ADMIN_CAP_ID> <STUDENT_ID> 10 --gas-budget 10000000
   - Xem ví hiện tại: sui client active-address
-
+  - Tạo bài tập mới:
+    sui client call --package <PACKAGE_ID> --module scoring --function create_challenge --args <ADMIN_CAP_ID> "Tên bài tập" <Độ_khó_1_đến_3> <Số_điểm> --gas-budget 10000000
+  - Cộng điểm, nộp bài:
+    sui client call --package <PACKAGE_ID> --module scoring --function add_score --args <ADMIN_CAP_ID> <STUDENT_PROFILE_ID> <CHALLENGE_ID> "C++" 0x6 --gas-budget 10000000
+  - Trao huy hiệu:
+    sui client call --package <PACKAGE_ID> --module scoring --function mint_badge --args <ADMIN_CAP_ID> <STUDENT_PROFILE_ID> "C++" --gas-budget 10000000
+  - Tạo hồ sơ mới:
+    sui client call --package <PACKAGE_ID> --module scoring --function create_profile --args "B21DCCN123" --gas-budget 10000000
+  - Kiểm tra danh sách sinh viên trong lớp 
+    sui client dynamic-field <CLASSROOM_ID>
+    
 Các lệnh git
 
   - Pull lấy code mới về máy: git pull origin main
