@@ -88,7 +88,7 @@ module code_ptit::scoring {
     }
 
     // Hàm cập nhật điểm
-    public entry fun add_score(_: &AdminCap, profile: &mut StudentProfile, language: String, clock: &Clock, ctx: &mut TxContext) {
+    public entry fun add_score(_: &AdminCap, profile: &mut StudentProfile, language: String, clock: &Clock) {
         let now = clock::timestamp_ms(clock);
         assert!(now - profile.last_submission >= 60000, 0);
 
@@ -109,7 +109,7 @@ module code_ptit::scoring {
     }
 
     // Hàm trao huy hiệu
-    public entry fun mint_badge(_: &AdminCap, student: &mut StudentProfile, ctx: &mut TxContext) {
+    public entry fun mint_badge(_: &AdminCap, student: &mut StudentProfile, language: String, ctx: &mut TxContext) {
         assert!(table::contains(&student.language_stats, language), 404);
         let solved_count = *table::borrow(&student.language_stats, language);
         let lang_bytes = language.as_bytes();
