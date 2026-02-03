@@ -25,8 +25,8 @@ Các lệnh Terminal thường dùng:
   - Kiểm tra danh sách sinh viên trong lớp 
     sui client dynamic-field <CLASSROOM_ID>
   - Thêm sinh viên vào lớp
-    sui client call --package 0x9cf5226cd6ea026ef55c4879c37010ba0d8a43eee0f352a0da5541122ebe35dc --module scoring --function add_to_class --args 0x889877c24c1862f0b1ee0f13c83d68d3732f0a9390d502fa0a85579867bd20a0 0xe83154c59c362c3b093c03487f37389a831a52496ffb0e8c7efb016484d56ecf "B21DCCN001" <STUDENT_ID> --gas-budget 10000000
-    
+    sui client call --package <STUDENT_ID> --module scoring --function add_to_class --args <ADMIN_CAP_ID> <CLASSROOM_ID> "B21DCCN001" <STUDENT_ID> --gas-budget 10000000
+
 Các lệnh git
 
   - Pull lấy code mới về máy: git pull origin main
