@@ -85,6 +85,17 @@ module code_ptit::scoring {
         transfer::public_transfer(profile, sender(ctx));
     }
 
+    /* Hàm tạo lớp
+    entry fun create_class(_: &AdminCap, ctx: &mut TxContext) {
+        let new_class = ClassRoom {
+            id: object::new(ctx),
+            members: table::new(ctx),
+        };
+
+        transfer::share_object(new_class);
+    }
+    */
+
     // Hàm thêm sinh viên vào lớp
     public entry fun add_to_class(_: &AdminCap, class: &mut ClassRoom, student_id: String, wallet: address) {
         table::add(&mut class.members, student_id, wallet);
