@@ -26,6 +26,7 @@ module code_ptit::scoring {
         avatar_url: String,
         major_language: String,
         language_stats: Table<String, u64>,
+        completed_challenges: Table<ID, bool>,
         last_submission: u64,
     }
 
@@ -47,7 +48,15 @@ module code_ptit::scoring {
         student_id: String,
         language: String,
         total_solved_in_lang: u64,
-    } 
+    }
+
+    // Object bài tập
+    public struct Challenge has key, store {
+        id: UID,
+        name: String,
+        difficulty: u8,
+        point_value: u64,
+    }
 
     fun init(ctx: &mut TxContext) {
         let admin_cap = AdminCap {id: object::new(ctx)};
@@ -69,6 +78,7 @@ module code_ptit::scoring {
             avatar_url: string::utf8(b""),
             major_language: string::utf8(b"None"),
             language_stats: table::new(ctx),
+            completed_challenges: table::new(ctx),
             last_submission: 0,
         };
         // Chuyển quyền sở hữu về ví sinh viên
@@ -88,9 +98,12 @@ module code_ptit::scoring {
     }
 
     // Hàm cập nhật điểm
-    public entry fun add_score(_: &AdminCap, profile: &mut StudentProfile, language: String, clock: &Clock) {
+    public entry fun add_score(_: &AdminCap, profile: &mut StudentProfile, challenge: &Challenge, language: String, clock: &Clock) {
         let now = clock::timestamp_ms(clock);
+        let challenge_id = object::id(challenge);
+
         assert!(now - profile.last_submission >= 60000, 0);
+        assert!(!table::contains(&profile.completed_challenges, challenge_id), 1);
 
         if (table::contains(&profile.language_stats, language)) {
             let current_count = table::borrow_mut(&mut profile.language_stats, language);
@@ -98,6 +111,8 @@ module code_ptit::scoring {
         } else {
             table::add(&mut profile.language_stats, language, 1);
         };
+
+        table::add(&mut profile.completed_challenges, challenge_id, true);
 
         profile.last_submission = now;
 
@@ -138,5 +153,15 @@ module code_ptit::scoring {
         };
         
         transfer::public_transfer(badge, tx_context::sender(ctx));
+    }
+
+    // Hàm tạo bài tập
+    public entry fun create_challange(_: &AdminCap, name: String, difficulty: u8, point_value: u64, ctx: &mut TxContext) {
+        let challenge = Challenge {
+            id: object::new(ctx),
+            name, difficulty, point_value,  
+        };
+        
+        transfer::share_object(challenge);
     }
 }
