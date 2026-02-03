@@ -8,7 +8,7 @@ Các ID quan trọng:
   - Test Student Profile ID: 0x9e81268d01dd7777601a7df74b5773e24bf8007e05555b9f8e14cbffa1a334a6
 
 Các lệnh Terminal thường dùng:
-
+  - Build sui: sui move build
   - Kiểm tra Object: sui client object <OBJECT_ID>
   - Gọi hàm add_score: sui client call --package <PACKAGE_ID> --module student_management --function add_score --args <ADMIN_CAP_ID> <STUDENT_ID> 10 --gas-budget 10000000
   - Xem ví hiện tại: sui client active-address
