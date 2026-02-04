@@ -8,7 +8,7 @@ Các ID quan trọng:
   - ClassRoom ID: 0xe83154c59c362c3b093c03487f37389a831a52496ffb0e8c7efb016484d56ecf
   - Clock ID: 0x6
   - UpdateCap ID: 0xe8197024ea91374b33971b1ee8cba3d2cfe50840ad879f2a9833e54ee76b4b2c
-
+  - B21DCCN123 ID: 0xccda51d6824998c5c144d6ffdff91dbfca6b546c30eec9de175a26c80c4b60ad
 Các lệnh Terminal thường dùng:
 
   - Build sui: sui move build
@@ -25,7 +25,7 @@ Các lệnh Terminal thường dùng:
   - Kiểm tra danh sách sinh viên trong lớp 
     sui client dynamic-field <CLASSROOM_ID>
   - Thêm sinh viên vào lớp
-    sui client call --package <STUDENT_ID> --module scoring --function add_to_class --args <ADMIN_CAP_ID> <CLASSROOM_ID> "B21DCCN001" <STUDENT_ID> --gas-budget 10000000
+    sui client call --package <STUDENT_ID> --module scoring --function add_to_class --args <ADMIN_CAP_ID> <CLASSROOM_ID> "B21DCCN123" <STUDENT_ID> --gas-budget 10000000
 
 Các lệnh git
 
