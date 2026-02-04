@@ -73,7 +73,7 @@ module code_ptit::scoring {
     }
 
     // Hàm khởi tạo hồ sơ cho sinh viên mới
-    public entry fun create_profile(student_id: String, ctx: &mut TxContext) {
+    public entry fun create_profile(_: &AdminCap, student_id: String, student_address: address ctx: &mut TxContext) {
         let profile = StudentProfile {
             id: object::new(ctx),
             student_id,
@@ -87,7 +87,7 @@ module code_ptit::scoring {
             total_score: 0,
         };
         // Chuyển quyền sở hữu về ví sinh viên
-        transfer::public_transfer(profile, sender(ctx));
+        transfer::public_transfer(profile, student_address);
     }
 
     // Hàm tạo lớp
