@@ -73,7 +73,7 @@ module code_ptit::scoring {
     }
 
     // Hàm khởi tạo hồ sơ cho sinh viên mới
-    public entry fun create_profile(_: &AdminCap, student_id: String, student_address: address ctx: &mut TxContext) {
+    public entry fun create_profile(_: &AdminCap, student_id: String, student_address: address, ctx: &mut TxContext) {
         let profile = StudentProfile {
             id: object::new(ctx),
             student_id,
