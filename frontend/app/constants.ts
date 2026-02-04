@@ -1,4 +1,0 @@
-export const PACKAGE_ID = "0x4473d0d1c14401940e877dab94dbd073372ff5724d2be5cbf55142393e15bd34";
-export const ADMIN_CAP_ID = "0xf09712c83ef5c8a24b8183d6a679456067bdc5dc179bf29736e348e4a31c80ee";
-export const UPDATE_CAP_ID = "0xe286e107fb6f6aa5ab80e108c6b40d6b123ec7b434e22dbf9ccc13a83d947e86";
-export const CLOCK_ID = "0x6";
