@@ -1,0 +1,7 @@
+.env
+node_modules/
+/frontend/build/
+/frontend/.next/
+/move_contracts/build/
+.DS_Store
+Thumbs.db
