@@ -1,19 +1,63 @@
 'use client';
 import React, { useState } from 'react';
-import { useCurrentAccount } from '@mysten/dapp-kit';
-import { Save, UserCircle } from 'lucide-react';
+import { useCurrentAccount, useSuiClientQuery, useSignAndExecuteTransaction } from '@mysten/dapp-kit';
+import { Transaction } from '@mysten/sui/transactions';
+import { Save, UserCircle, Loader2 } from 'lucide-react';
+import { PACKAGE_ID } from '../constants';
+import { toast } from 'react-hot-toast';
 
 export default function EditProfile() {
   const account = useCurrentAccount();
+  const { mutate: signAndExecute } = useSignAndExecuteTransaction();
+  const [loading, setLoading] = useState(false);
+
   const [formData, setFormData] = useState({
     nickname: '',
     avatar: '',
     language: 'C++'
   });
 
-  const handleUpdate = () => {
-    // Đây là nơi gọi hàm Transaction từ ví (Người B sẽ giúp bạn phần này)
-    console.log("Cập nhật blockchain với:", formData);
+  // 1. Tìm Profile ID của người dùng (vì là Shared Object)
+  const { data: profiles } = useSuiClientQuery('queryObjects', {
+    filter: { StructType: `${PACKAGE_ID}::scoring::StudentProfile` },
+    options: { showContent: true }
+  });
+
+  const userProfile = profiles?.data?.find((obj: any) => 
+    obj.data?.content?.fields?.owner === account?.address
+  );
+
+  const handleUpdate = async () => {
+    if (!account || !userProfile) {
+      toast.error("Không tìm thấy profile hoặc chưa kết nối ví");
+      return;
+    }
+
+    setLoading(true);
+    const tx = new Transaction();
+    
+    tx.moveCall({
+      target: `${PACKAGE_ID}::scoring::update_profile`,
+      arguments: [
+        tx.object(userProfile.data.objectId), // Truyền Shared Object ID
+        tx.pure.string(formData.nickname),
+        tx.pure.string(formData.avatar)
+      ],
+    });
+
+    signAndExecute(
+      { transaction: tx },
+      {
+        onSuccess: () => {
+          toast.success("Cập nhật thành công!");
+          setLoading(false);
+        },
+        onError: (err) => {
+          toast.error("Lỗi: " + err.message);
+          setLoading(false);
+        }
+      }
+    );
   };
 
   return (
@@ -22,16 +66,16 @@ export default function EditProfile() {
         <div className="flex flex-col items-center mb-8">
           <UserCircle size={64} className="text-blue-500 mb-2" />
           <h1 className="text-2xl font-bold">Chỉnh sửa hồ sơ</h1>
-          <p className="text-slate-500 text-sm italic">Cập nhật thông tin On-chain của bạn</p>
+          <p className="text-slate-500 text-sm italic underline">Dữ liệu Shared Object: {userProfile?.data?.objectId?.slice(0,10)}...</p>
         </div>
 
         <div className="space-y-6">
           <div>
-            <label className="block text-xs font-mono text-slate-500 mb-2 uppercase">Nickname</label>
+            <label className="block text-xs font-mono text-slate-500 mb-2 uppercase">Nickname mới</label>
             <input 
               type="text" 
               className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 focus:border-blue-500 outline-none transition"
-              placeholder="Nhập nickname mới..."
+              placeholder="Tên hiển thị..."
               onChange={(e) => setFormData({...formData, nickname: e.target.value})}
             />
           </div>
@@ -41,29 +85,18 @@ export default function EditProfile() {
             <input 
               type="text" 
               className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 focus:border-blue-500 outline-none transition"
-              placeholder="https://image-url.com"
+              placeholder="https://..."
               onChange={(e) => setFormData({...formData, avatar: e.target.value})}
             />
           </div>
 
-          <div>
-            <label className="block text-xs font-mono text-slate-500 mb-2 uppercase">Ngôn ngữ chính</label>
-            <select 
-              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 focus:border-blue-500 outline-none transition appearance-none"
-              onChange={(e) => setFormData({...formData, language: e.target.value})}
-            >
-              <option>C++</option>
-              <option>Java</option>
-              <option>Python</option>
-              <option>Move</option>
-            </select>
-          </div>
-
           <button 
             onClick={handleUpdate}
-            className="w-full bg-blue-600 hover:bg-blue-500 py-4 rounded-2xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg shadow-blue-900/20"
+            disabled={loading || !userProfile}
+            className="w-full bg-blue-600 hover:bg-blue-500 disabled:bg-slate-700 py-4 rounded-2xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg"
           >
-            <Save size={20} /> Lưu vào Blockchain
+            {loading ? <Loader2 className="animate-spin" /> : <Save size={20} />}
+            Lưu thay đổi
           </button>
         </div>
       </div>

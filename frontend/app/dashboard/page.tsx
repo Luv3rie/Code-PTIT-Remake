@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Trophy, Code2, Award, Wallet, Info, Settings, ArrowRight, ExternalLink, CheckCircle2, Star, LayoutDashboard, ShieldCheck, BookOpen } from 'lucide-react';
 import { 
   ConnectButton, 
@@ -8,7 +8,6 @@ import {
   useSuiClientQuery 
 } from '@mysten/dapp-kit';
 import { PACKAGE_ID } from '../constants';
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -19,25 +18,31 @@ export default function Dashboard() {
 
   const account = useCurrentAccount();
 
-  // Truy vấn dữ liệu Profile từ Blockchain
-  const { data: profileData } = useSuiClientQuery(
-    'getOwnedObjects',
+  // THAY ĐỔI Ở ĐÂY: Vì Profile là Shared Object, ta phải tìm object theo Type 
+  // và lọc những cái có trường `owner` khớp với địa chỉ ví hiện tại.
+  const { data: allProfiles } = useSuiClientQuery(
+    'queryObjects',
     {
-      owner: account?.address || '',
       filter: { StructType: `${PACKAGE_ID}::scoring::StudentProfile` },
       options: { showContent: true }
     },
     { enabled: !!account }
   );
 
-  const hasProfile = profileData?.data && profileData.data.length > 0;
+  // Tìm profile của chính sinh viên này trong danh sách Shared Objects
+  const studentProfileData = allProfiles?.data?.find((obj: any) => {
+    const fields = (obj.data?.content as any)?.fields;
+    return fields?.owner === account?.address;
+  });
+
+  const hasProfile = !!studentProfileData;
   const studentProfile = hasProfile 
-    ? (profileData.data[0].data?.content as any)?.fields 
+    ? (studentProfileData.data?.content as any)?.fields 
     : null;
 
   return (
     <div className="min-h-screen bg-[#0a0c10] text-slate-50">
-      {/* NAVBAR ĐIỀU HƯỚNG MỚI */}
+      {/* NAVBAR */}
       <nav className="sticky top-0 z-50 border-b border-slate-800 bg-[#0a0c10]/80 backdrop-blur-md">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-8">
@@ -75,7 +80,7 @@ export default function Dashboard() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
             
-            {/* CỘT TRÁI: PROFILE (4/12) */}
+            {/* CỘT TRÁI: PROFILE */}
             <div className="md:col-span-4 space-y-6">
               <div className="bg-[#11141d] border border-slate-800 rounded-3xl p-6 shadow-2xl relative overflow-hidden group h-fit">
                 <div className="flex flex-col items-center text-center">
@@ -101,7 +106,6 @@ export default function Dashboard() {
                       </p>
                     </div>
 
-                    {/* NÚT CHỈNH SỬA DUY NHẤT */}
                     <Link href="/profile/edit" className="block w-full">
                       <button className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white py-3.5 rounded-2xl text-xs font-bold transition-all shadow-lg shadow-blue-900/20 active:scale-[0.98]">
                         <Settings size={16} /> CHỈNH SỬA HỒ SƠ
@@ -112,10 +116,8 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* CỘT PHẢI: THÔNG TIN CHI TIẾT (8/12) */}
+            {/* CỘT PHẢI */}
             <div className="md:col-span-8 space-y-6">
-              
-              {/* STATS CARD */}
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-gradient-to-br from-blue-600/20 via-transparent to-transparent border border-blue-500/20 p-6 rounded-3xl">
                   <div className="flex items-center gap-3 mb-2 text-blue-400">
@@ -134,52 +136,21 @@ export default function Dashboard() {
                 </div>
               </div>
 
-              {/* TIẾN ĐỘ TRÊN CHUỖI */}
               <div className="bg-[#11141d] border border-slate-800 rounded-3xl p-6 shadow-xl">
                 <div className="flex justify-between items-center mb-6">
                   <h3 className="flex items-center gap-2 text-lg font-semibold"><Trophy className="text-yellow-500" size={20} /> Tiến độ chi tiết</h3>
                   <div className="flex items-center gap-2">
                     <span className="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"></span>
-                    <span className="text-[10px] text-yellow-500 font-bold uppercase tracking-wider">Testnet Active</span>
+                    <span className="text-[10px] text-yellow-500 font-bold uppercase tracking-wider">Blockchain Live</span>
                   </div>
                 </div>
                 
                 <div className="p-10 text-center border border-dashed border-slate-800 rounded-2xl">
-                   <p className="text-sm text-slate-500 italic">
-                    {hasProfile ? "Đang đồng bộ dữ liệu bài tập..." : "Vui lòng đăng ký MSSV tại trang Admin để bắt đầu"}
-                   </p>
+                    <p className="text-sm text-slate-500 italic">
+                     {hasProfile ? "Đang đồng bộ dữ liệu bài tập..." : "Vui lòng nhờ giảng viên đăng ký MSSV để bắt đầu"}
+                    </p>
                 </div>
               </div>
-
-              {/* BÀI MỚI NHẤT */}
-              <div className="bg-[#11141d] border border-slate-800 rounded-3xl p-6 shadow-xl">
-                <div className="flex justify-between items-center mb-6">
-                   <h3 className="flex items-center gap-2 text-lg font-semibold"><Code2 className="text-blue-500" size={20} /> Bài mới nhất</h3>
-                   <Link href="/challenges" className="text-xs text-slate-500 hover:text-blue-400 flex items-center gap-1 transition-colors">
-                      Xem tất cả <ArrowRight size={12} />
-                   </Link>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {[
-                    { id: '1', name: "Tính tổng A+B", diff: "Dễ", color: "text-green-400" },
-                    { id: '2', name: "Đảo đối lập", diff: "Vừa", color: "text-blue-400" },
-                  ].map((item) => (
-                    <div key={item.id} className="p-4 bg-slate-900/50 border border-slate-800 rounded-2xl hover:border-blue-500/30 transition-all group">
-                      <div className="flex justify-between items-start mb-4">
-                        <h4 className="font-bold text-slate-200 group-hover:text-blue-400 transition-colors">{item.name}</h4>
-                        <span className="text-[10px] font-mono text-slate-700">#00{item.id}</span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className={`text-[10px] font-bold uppercase ${item.color}`}>Độ khó: {item.diff}</span>
-                        <Link href={`/challenge/${item.id}`} className="text-blue-400 text-xs font-bold flex items-center gap-1 group-hover:gap-2 transition-all">
-                          Giải <ArrowRight size={12} />
-                        </Link>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
             </div>
           </div>
         )}

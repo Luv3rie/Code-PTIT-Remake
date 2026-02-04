@@ -8,8 +8,10 @@ Các ID quan trọng:
   - ClassRoom ID: 0xfddce3531a84e2b929c4240c9c3cde2036e1b7a29670628a78fd225d3d66f788
   - Clock ID: 0x6
   - Long's address: 0x3c10f0ea4d84fdca1111fb747257c64c8c393c7410b32377cd8f4f8c45db4725
-  - Long's ID:  
-  - brainf!ck: 
+  - Long's ID: 0x88aee81b6f354a6c1a82f57afafdd3fe14c1ed5e43cf1c43cebabc7809e421ec
+  - Minh's ID: 0xb94e824e29228c5b5f3e6a6848b5960ca6a71d7ab5d72ecbf903581af408211e
+  - Bach's ID: 0x8b1cde8ab5d596c7d4db1d98b53ca909ef3a443e36c159bd91ee72044bbf7a56
+  - brainf!ck: 0x42eab9da1080b137108e94e24da2233d3b1f6fe6ce41e9c246f3840abf3e23f2
 
 
 Các lệnh Terminal thường dùng:
