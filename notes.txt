@@ -3,11 +3,10 @@ Thông tin quan trọng dự án Sui
 
 Các ID quan trọng:
 
-  - Package ID: 0x02fbeab6f6ed09556ab8011f49c63450c0592219f67572b0d364bf1a5105c9b2
-  - AdminCap ID: 0xe08761223e1cd0fe263d2ff834a4327fcbe5a0ab63878f8156186357be8ba0a8
-  - ClassRoom ID: 0x4703175f3b1d6a8709659cfe4a421784a4a8f2d40b0e9e82dabe9e64b31ed51c
+  - Package ID: 0x83f05a4be200a68cf9496cb04a0f360d556b992850edc15ece61519bba51550c
+  - AdminCap ID: 0xea237aa501798a880c4ff043c148fc9960309e52d3da0b4734fc4a86320bb2d2
+  - ClassRoom ID: 0x5c49c96f0bdb2358dc322a2855fb68330f957efb86f11c35cc2f4a574fa4eff3
   - Clock ID: 0x6
-  - UpdateCap ID: 0x681a7cd7ee9e6e19dd74878b459e6cea7a5201e7594a5b509ec60dd7fe1d4e74
 
 Các lệnh Terminal thường dùng:
 
