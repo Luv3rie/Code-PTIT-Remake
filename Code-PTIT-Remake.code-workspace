@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"name": "move_contracts",
+			"path": "move_contracts"
+		},
+		{
+			"name": "backend",
+			"path": "backend"
+		},
+		{
+			"name": "frontend",
+			"path": "frontend"
+		}
+	]
+}
