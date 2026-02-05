@@ -33,6 +33,7 @@ module code_ptit::code_ptit {
     public struct Challenge has key, store {
         id: UID,
         name: String,
+        language: String,
         difficulty: u8,
         point_value: u64,
     }
@@ -104,10 +105,10 @@ module code_ptit::code_ptit {
         object::delete(id);
     }
 
-    public entry fun create_challenge(_: &Admin, name: String, difficulty: u8, point_value: u64, ctx: &mut TxContext) {
+    public entry fun create_challenge(_: &Admin, name: String, language: String, difficulty: u8, point_value: u64, ctx: &mut TxContext) {
         let challenge = Challenge {
             id: object::new(ctx),
-            name, difficulty, point_value,  
+            name, language, difficulty, point_value,  
         };
         transfer::share_object(challenge);
     }
@@ -116,6 +117,7 @@ module code_ptit::code_ptit {
         let Challenge {
             id,
             name: _,
+            language: _,
             difficulty: _,
             point_value: _,
         } = challenge;
