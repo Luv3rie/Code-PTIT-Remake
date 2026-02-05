@@ -1,4 +1,5 @@
-Package ID = 0x0fc30f6dd60419f4d4dacad5ebbabc6bcb16bf2033525b9c91f2cee0fffd7036
-UpgradeCap ID = 0x7297d8c90807d59d0b7ddd8b8c02b2ec238f306510ffdc3f4e5f0c5a3957c941
-Admin ID = 0xeb32702b2c959e617668d8bba37ec330244bfbb66c8f042f6b4dc8d0bb2e12fd
+Package ID = 0xbe3e8a32eef2bcb44a1e2b13cc97fc0835745c386365b96b81a5ecc78f17e7c3
+UpgradeCap ID = 0x0b1d721c683b0f7a5f1471d4ba9418d67b581a22ffb0ae34d2f5e60f23512dec
+Admin ID = 0xb575704ea736ab01c0d5e362406c0be0b214d1ccf0825a144045852b93c95acf
 Long ID = 
+Brainf!ck ID = 
