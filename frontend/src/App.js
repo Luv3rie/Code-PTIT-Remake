@@ -6,9 +6,11 @@ import Badges from './pages/Badges';
 import Profile from './pages/Profile';
 import Admin from './pages/Admin';
 import ChallengeDetail from './pages/ChallengeDetail';
+import { StudentProvider } from './contexts/StudentContext';
 
 function App() {
   return (
+    <StudentProvider>
     <Router>
       <div className="min-h-screen bg-slate-50">
         {/* Menu điều hướng */}
@@ -38,6 +40,7 @@ function App() {
         </div>
       </div>
     </Router>
+    </StudentProvider>
   );
 }
 
