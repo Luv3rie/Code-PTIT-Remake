@@ -47,8 +47,6 @@ const Challenges = () => {
 
   const filteredChallenges = challenges.filter(ch => ch.language === selectedLang);
 
-  if (profileLoading) return <div className="p-20 text-center font-bold">Đang xác thực hồ sơ sinh viên...</div>;
-
   return (
     <div className="p-8 max-w-6xl mx-auto">
       <div className="flex justify-between items-end mb-8">

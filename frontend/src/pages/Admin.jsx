@@ -52,6 +52,18 @@ const Admin = () => {
     signAndExecute({ transaction: tx });
   };
 
+  const handleDeleteProfile = (profileId) => {
+    const tx = new Transaction();
+    tx.moveCall({
+      target: `${import.meta.env.VITE_PACKAGE_ID}::code_ptit::delete_profile`,
+      arguments: [
+        tx.object(import.meta.env.VITE_ADMIN_CAP_ID),
+        tx.object(profileId),
+      ],
+    });
+    signAndExecute({ transaction: tx });
+  };
+
   if (!isAdmin) return (
     <div className="p-20 text-center font-bold text-red-500 uppercase tracking-widest">
       🚫 Cảnh báo: Bạn không có quyền quản trị!
@@ -96,9 +108,16 @@ const Admin = () => {
           <h3 className="font-bold text-lg mb-4">📚 Bài tập hiện có ({challenges.length})</h3>
           <div className="space-y-2 max-h-64 overflow-y-auto">
              {challenges.length > 0 ? challenges.map((ch, i) => (
-               <div key={i} className="p-2 bg-slate-50 rounded border-l-4 border-blue-500">
-                 <p className="font-semibold">{ch.name}</p>
-                 <p className="text-xs text-slate-500">{ch.language} | Độ khó: {ch.difficulty} | {ch.point_value} điểm</p>
+               <div key={i} className="p-3 bg-slate-50 rounded border-l-4 border-blue-500 flex justify-between items-center group hover:bg-blue-50 transition-colors">
+                 <div className="flex-1">
+                   <p className="font-semibold">{ch.name}</p>
+                   <p className="text-xs text-slate-500">{ch.language} | Độ khó: {ch.difficulty} | {ch.point_value} điểm</p>
+                 </div>
+                 <button onClick={() => {
+                   setChallenges(challenges.filter((_, index) => index !== i));
+                 }} className="ml-2 px-3 py-1 bg-red-500 hover:bg-red-600 text-white rounded text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity">
+                   XÓA
+                 </button>
                </div>
              )) : <p className="text-slate-400 italic">Không có dữ liệu</p>}
           </div>
@@ -108,9 +127,16 @@ const Admin = () => {
           <h3 className="font-bold text-lg mb-4">🎓 Hồ sơ sinh viên ({profiles.length})</h3>
           <div className="space-y-2 max-h-64 overflow-y-auto">
              {profiles.length > 0 ? profiles.map((prof, i) => (
-               <div key={i} className="p-2 bg-slate-50 rounded border-l-4 border-emerald-500">
-                 <p className="font-semibold">{prof.nickname || prof.student_id}</p>
-                 <p className="text-xs text-slate-500">MSSV: {prof.student_id} | Điểm: {prof.total_score || 0}</p>
+               <div key={i} className="p-3 bg-slate-50 rounded border-l-4 border-emerald-500 flex justify-between items-center group hover:bg-emerald-50 transition-colors">
+                 <div className="flex-1">
+                   <p className="font-semibold">{prof.nickname || prof.student_id}</p>
+                   <p className="text-xs text-slate-500">MSSV: {prof.student_id} | Điểm: {prof.total_score || 0}</p>
+                 </div>
+                 <button onClick={() => {
+                   setProfiles(profiles.filter((_, index) => index !== i));
+                 }} className="ml-2 px-3 py-1 bg-red-500 hover:bg-red-600 text-white rounded text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity">
+                   XÓA
+                 </button>
                </div>
              )) : <p className="text-slate-400 italic">Không có dữ liệu</p>}
           </div>
