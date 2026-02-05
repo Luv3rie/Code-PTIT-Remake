@@ -1,7 +1,6 @@
-// Thử cách này cho phiên bản SDK mới nhất
-import { SuiClient } from '@mysten/sui/client';
+// Thử chuyển sang dùng sui.js/client
+import { SuiClient } from '@mysten/sui.js/client';
 
-// Thay vì dùng getFullnodeUrl, bạn có thể truyền thẳng URL của Testnet
 const client = new SuiClient({ 
     url: "https://fullnode.testnet.sui.io:443" 
 });

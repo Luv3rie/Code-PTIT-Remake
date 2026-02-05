@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useStudent } from '../contexts/StudentContext.jsx';
+import { StudentContext } from '../contexts/StudentContext.jsx';
 import { fetchUserBadges } from '../utils/queries.js';
 // import { mintBadgeTx } from '../utils/transactions'; // Bạn C chuẩn bị hàm này nhé
 

@@ -8,6 +8,9 @@ import Admin from './pages/Admin';
 import ChallengeDetail from './pages/ChallengeDetail';
 import { StudentProvider } from './contexts/StudentContext';
 
+// 1. IMPORT LINH KIỆN CỦA BẠN C
+import ConnectWalletCustom from './components/ConnectWalletCustom';
+
 function App() {
   return (
     <StudentProvider>
@@ -23,7 +26,10 @@ function App() {
             <Link to="/profile" className="hover:text-blue-400">PROFILE</Link>
             <Link to="/admin" className="text-red-400 border-l pl-6 border-slate-700">ADMIN</Link>
           </div>
-          <button className="bg-blue-600 px-6 py-2 rounded-full font-bold text-xs">CONNECT WALLET</button>
+
+          {/* 2. THAY THẾ NÚT TĨNH BẰNG NÚT CỦA BẠN C */}
+          <ConnectWalletCustom />
+          
         </nav>
 
         {/* Nội dung trang */}

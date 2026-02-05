@@ -1,5 +1,5 @@
 import React, { useContext, useMemo } from 'react';
-import { useStudent } from '../contexts/StudentContext.jsx'; // Import context bạn C đã làm
+import { StudentContext } from '../contexts/StudentContext.jsx'; // Import context bạn C đã làm
 
 const Dashboard = () => {
   // Lấy dữ liệu từ Context của bạn C

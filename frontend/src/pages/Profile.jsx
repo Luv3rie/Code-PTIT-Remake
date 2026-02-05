@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useStudent } from '../contexts/StudentContext';
+// Thay đổi dòng này: Import useStudent thay vì StudentContext
+import { useStudent } from '../contexts/StudentContext'; 
 import { useSignAndExecuteTransaction } from '@mysten/dapp-kit';
 import { Transaction } from '@mysten/sui/transactions';
 
