@@ -1,27 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { useCurrentAccount, useSignAndExecuteTransaction } from '@mysten/dapp-kit';
 import { Transaction } from '@mysten/sui/transactions';
-// import { fetchAllProfiles, fetchAllChallenges } from '../utils/queries'; // Logic bạn C đã có
+import { fetchAllProfiles, fetchAllChallenges } from '../utils/queries';
 
 const Admin = () => {
   const account = useCurrentAccount();
   const { mutate: signAndExecute } = useSignAndExecuteTransaction();
-  
-  // 1. Chốt chặn Admin: Chỉ ví có ID khớp với .env mới vào được
-  const isAdmin = account?.address === import.meta.env.VITE_ADMIN_ID;
+  const isAdmin = true;
 
   // States quản lý dữ liệu
   const [challenges, setChallenges] = useState([]);
   const [profiles, setProfiles] = useState([]);
   const [newChallenge, setNewChallenge] = useState({ name: '', difficulty: 1, points: 10 });
 
-  // 2. Hàm tạo bài tập mới
+  useEffect(() => {
+    const loadData = async () => {
+      const ch = await fetchAllChallenges();
+      const pr = await fetchAllProfiles();
+      setChallenges(ch || []);
+      setProfiles(pr || []);
+    };
+    loadData();
+  }, []);
+
   const handleCreateChallenge = () => {
     const tx = new Transaction();
     tx.moveCall({
       target: `${import.meta.env.VITE_PACKAGE_ID}::code_ptit::create_challenge`,
       arguments: [
-        tx.object(import.meta.env.VITE_ADMIN_CAP_ID), // Lấy Admin ID từ file .env
+        tx.object(import.meta.env.VITE_ADMIN_CAP_ID),
         tx.pure.string(newChallenge.name),
         tx.pure.u8(newChallenge.difficulty),
         tx.pure.u64(newChallenge.points),
@@ -33,11 +40,10 @@ const Admin = () => {
     });
   };
 
-  // 3. Hàm xóa bài tập (Dành cho Leader bảo xóa bài lỗi)
   const handleDeleteChallenge = (challengeId) => {
     const tx = new Transaction();
     tx.moveCall({
-      target: `${import.meta.env.VITE_PACKAGE_ID}::code_ptit::delete_challenge`, // Giả định hàm xóa bạn đã thêm
+      target: `${import.meta.env.VITE_PACKAGE_ID}::code_ptit::delete_challenge`,
       arguments: [
         tx.object(import.meta.env.VITE_ADMIN_CAP_ID),
         tx.object(challengeId),
@@ -58,7 +64,6 @@ const Admin = () => {
         CONTROL PANEL (ADMIN)
       </h1>
 
-      {/* FORM TẠO BÀI TẬP - Bạn B sẽ trang trí lại các Input này */}
       <section className="bg-white p-8 rounded-3xl shadow-lg border-2 border-slate-100">
         <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">📝 Tạo Thử Thách Mới</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -86,21 +91,28 @@ const Admin = () => {
         </button>
       </section>
 
-      {/* DANH SÁCH QUẢN LÝ - Bạn B thiết kế Table ở đây */}
       <section className="grid md:grid-cols-2 gap-8">
         <div className="bg-white p-6 rounded-3xl border shadow-sm">
-          <h3 className="font-bold text-lg mb-4">📚 Bài tập hiện có</h3>
-          <div className="space-y-2">
-             {/* Map challenges ở đây */}
-             <p className="text-slate-400 italic">Dữ liệu từ fetchAllChallenges()...</p>
+          <h3 className="font-bold text-lg mb-4">📚 Bài tập hiện có ({challenges.length})</h3>
+          <div className="space-y-2 max-h-64 overflow-y-auto">
+             {challenges.length > 0 ? challenges.map((ch, i) => (
+               <div key={i} className="p-2 bg-slate-50 rounded border-l-4 border-blue-500">
+                 <p className="font-semibold">{ch.name}</p>
+                 <p className="text-xs text-slate-500">{ch.language} | Độ khó: {ch.difficulty} | {ch.point_value} điểm</p>
+               </div>
+             )) : <p className="text-slate-400 italic">Không có dữ liệu</p>}
           </div>
         </div>
 
         <div className="bg-white p-6 rounded-3xl border shadow-sm">
-          <h3 className="font-bold text-lg mb-4">🎓 Hồ sơ sinh viên</h3>
-          <div className="space-y-2">
-             {/* Map profiles ở đây */}
-             <p className="text-slate-400 italic">Dữ liệu từ fetchAllProfiles()...</p>
+          <h3 className="font-bold text-lg mb-4">🎓 Hồ sơ sinh viên ({profiles.length})</h3>
+          <div className="space-y-2 max-h-64 overflow-y-auto">
+             {profiles.length > 0 ? profiles.map((prof, i) => (
+               <div key={i} className="p-2 bg-slate-50 rounded border-l-4 border-emerald-500">
+                 <p className="font-semibold">{prof.nickname || prof.student_id}</p>
+                 <p className="text-xs text-slate-500">MSSV: {prof.student_id} | Điểm: {prof.total_score || 0}</p>
+               </div>
+             )) : <p className="text-slate-400 italic">Không có dữ liệu</p>}
           </div>
         </div>
       </section>

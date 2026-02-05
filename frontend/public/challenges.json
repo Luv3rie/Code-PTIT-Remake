@@ -1,0 +1,170 @@
+[
+  {
+    "id": "challenge-cpp-001",
+    "name": "Hello World - First Step",
+    "language": "C++",
+    "difficulty": 1,
+    "point_value": 10
+  },
+  {
+    "id": "challenge-cpp-002",
+    "name": "Sum of Two Numbers",
+    "language": "C++",
+    "difficulty": 2,
+    "point_value": 20
+  },
+  {
+    "id": "challenge-cpp-003",
+    "name": "Reverse String",
+    "language": "C++",
+    "difficulty": 2,
+    "point_value": 25
+  },
+  {
+    "id": "challenge-cpp-004",
+    "name": "Array Sorting",
+    "language": "C++",
+    "difficulty": 3,
+    "point_value": 35
+  },
+  {
+    "id": "challenge-cpp-005",
+    "name": "Binary Search Implementation",
+    "language": "C++",
+    "difficulty": 3,
+    "point_value": 40
+  },
+  {
+    "id": "challenge-cpp-006",
+    "name": "Pointer Arithmetic",
+    "language": "C++",
+    "difficulty": 4,
+    "point_value": 50
+  },
+  {
+    "id": "challenge-cpp-007",
+    "name": "Dynamic Memory Allocation",
+    "language": "C++",
+    "difficulty": 4,
+    "point_value": 55
+  },
+  {
+    "id": "challenge-cpp-008",
+    "name": "Object-Oriented Design",
+    "language": "C++",
+    "difficulty": 5,
+    "point_value": 70
+  },
+  {
+    "id": "challenge-js-001",
+    "name": "JavaScript Basics",
+    "language": "JavaScript",
+    "difficulty": 1,
+    "point_value": 15
+  },
+  {
+    "id": "challenge-js-002",
+    "name": "Array Methods",
+    "language": "JavaScript",
+    "difficulty": 2,
+    "point_value": 25
+  },
+  {
+    "id": "challenge-js-003",
+    "name": "Object Destructuring",
+    "language": "JavaScript",
+    "difficulty": 2,
+    "point_value": 30
+  },
+  {
+    "id": "challenge-js-004",
+    "name": "Async/Await",
+    "language": "JavaScript",
+    "difficulty": 3,
+    "point_value": 40
+  },
+  {
+    "id": "challenge-js-005",
+    "name": "Promise Chain",
+    "language": "JavaScript",
+    "difficulty": 3,
+    "point_value": 35
+  },
+  {
+    "id": "challenge-js-006",
+    "name": "Closure and Scope",
+    "language": "JavaScript",
+    "difficulty": 3,
+    "point_value": 38
+  },
+  {
+    "id": "challenge-js-007",
+    "name": "Event Loop Mastery",
+    "language": "JavaScript",
+    "difficulty": 4,
+    "point_value": 50
+  },
+  {
+    "id": "challenge-js-008",
+    "name": "Custom Hook Implementation",
+    "language": "JavaScript",
+    "difficulty": 4,
+    "point_value": 55
+  },
+  {
+    "id": "challenge-move-001",
+    "name": "Move Starter",
+    "language": "Move",
+    "difficulty": 1,
+    "point_value": 20
+  },
+  {
+    "id": "challenge-move-002",
+    "name": "Struct Definition",
+    "language": "Move",
+    "difficulty": 2,
+    "point_value": 30
+  },
+  {
+    "id": "challenge-move-003",
+    "name": "Module Creation",
+    "language": "Move",
+    "difficulty": 2,
+    "point_value": 35
+  },
+  {
+    "id": "challenge-move-004",
+    "name": "Resource Management",
+    "language": "Move",
+    "difficulty": 3,
+    "point_value": 45
+  },
+  {
+    "id": "challenge-move-005",
+    "name": "Capability Pattern",
+    "language": "Move",
+    "difficulty": 3,
+    "point_value": 50
+  },
+  {
+    "id": "challenge-move-006",
+    "name": "Object Ownership",
+    "language": "Move",
+    "difficulty": 4,
+    "point_value": 60
+  },
+  {
+    "id": "challenge-move-007",
+    "name": "Transaction Building",
+    "language": "Move",
+    "difficulty": 4,
+    "point_value": 65
+  },
+  {
+    "id": "challenge-move-008",
+    "name": "Advanced Sui Patterns",
+    "language": "Move",
+    "difficulty": 5,
+    "point_value": 80
+  }
+]

@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useSuiClient } from '@mysten/dapp-kit';
+import { useNavigate } from 'react-router-dom';
 import { useStudent } from '../contexts/StudentContext';
+import { fetchAllChallenges, checkChallengeStatus } from '../utils/queries';
 
 const Challenges = () => {
-  const client = useSuiClient();
+  const navigate = useNavigate();
   const { profile, isLoading: profileLoading } = useStudent();
   
   const [selectedLang, setSelectedLang] = useState('C++');
   const [challenges, setChallenges] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Lấy ID của Table chứa các thử thách đã hoàn thành từ Profile
-  // Trong Move: completed_challenges: Table<ID, bool>
   const completedTableId = profile?.completed_challenges?.fields?.id?.id;
 
   useEffect(() => {
@@ -19,33 +18,15 @@ const Challenges = () => {
       try {
         setLoading(true);
         
-        // 1. Lấy tất cả bài tập (Shared Objects) từ Package ID
-        const objects = await client.getOwnedObjects({
-          owner: import.meta.env.VITE_PACKAGE_ID, 
-          filter: { 
-            StructType: `${import.meta.env.VITE_PACKAGE_ID}::code_ptit::Challenge` 
-          },
-          options: { showContent: true }
-        });
+        const allChallenges = await fetchAllChallenges();
 
-        const allChallenges = objects.data.map(obj => ({
-          id: obj.data.objectId,
-          ...obj.data.content.fields
-        }));
-
-        // 2. Kiểm tra trạng thái "Đã làm" bằng cách check Dynamic Field trong Table
         const enriched = await Promise.all(allChallenges.map(async (ch) => {
           let isDone = false;
           if (completedTableId) {
             try {
-              // Truy vấn vào Table để tìm Key là ID của bài tập
-              const response = await client.getDynamicFieldObject({
-                parentId: completedTableId,
-                name: { type: '0x2::object::ID', value: ch.id }
-              });
-              isDone = !!response.data; // Nếu tìm thấy object thì là đã hoàn thành
+              isDone = await checkChallengeStatus(completedTableId, ch.id);
             } catch (e) {
-              isDone = false; // Lỗi thường là do Key không tồn tại -> Chưa làm
+              isDone = false; 
             }
           }
           return { ...ch, isDone };
@@ -59,13 +40,11 @@ const Challenges = () => {
       }
     };
 
-    // Chỉ chạy khi đã load xong Profile để có completedTableId
     if (!profileLoading) {
       loadData();
     }
-  }, [completedTableId, client, profileLoading]);
+  }, [completedTableId, profileLoading]);
 
-  // Lọc theo ngôn ngữ đang chọn
   const filteredChallenges = challenges.filter(ch => ch.language === selectedLang);
 
   if (profileLoading) return <div className="p-20 text-center font-bold">Đang xác thực hồ sơ sinh viên...</div>;
@@ -102,7 +81,7 @@ const Challenges = () => {
         ))}
       </div>
 
-      {/* DANH SÁCH BÀI TẬP */}
+
       {loading ? (
         <div className="grid grid-cols-1 gap-4 animate-pulse">
           {[1, 2, 3].map(i => <div key={i} className="h-24 bg-slate-100 rounded-2xl"></div>)}
@@ -143,7 +122,7 @@ const Challenges = () => {
                     <span>✓</span> HOÀN THÀNH
                   </div>
                 ) : (
-                  <button className="bg-slate-900 hover:bg-blue-600 text-white px-8 py-3 rounded-xl font-bold transition-colors shadow-lg shadow-slate-200">
+                  <button onClick={() => navigate(`/challenges/${ch.id}`)} className="bg-slate-900 hover:bg-blue-600 text-white px-8 py-3 rounded-xl font-bold transition-colors shadow-lg shadow-slate-200">
                     THỬ NGAY
                   </button>
                 )}

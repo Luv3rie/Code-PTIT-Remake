@@ -1,23 +1,18 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import { useStudent } from '../contexts/StudentContext.jsx'; //
-// import Editor from "@monaco-editor/react"; // Gợi ý dùng cho bạn B
+import { useStudent } from '../contexts/StudentContext.jsx';
 
 const ChallengeDetail = () => {
-  const { id } = useParams(); // Lấy ID bài tập từ URL
-  const { profile } = useContext(StudentContext); //
+  const { id } = useParams();
+  const { profile } = useStudent();
   
   const [challenge, setChallenge] = useState(null);
   const [code, setCode] = useState("");
-  const [status, setStatus] = useState("idle"); // idle | submitting | success | error
+  const [status, setStatus] = useState("idle");
 
-  // 1. Lấy thông tin chi tiết bài tập từ Blockchain hoặc Cache của bạn C
   useEffect(() => {
-    // Gọi fetchChallengeById(id) ở đây
-    // setChallenge(data);
   }, [id]);
 
-  // 2. Hàm nộp bài gửi đến Server bạn D
   const handleSubmit = async () => {
     setStatus("submitting");
     try {
@@ -25,8 +20,8 @@ const ChallengeDetail = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          profile_id: profile.id, //
-          challenge_id: id,       //
+          profile_id: profile.id,
+          challenge_id: id,
           source_code: code,
           language: challenge?.language
         })
@@ -42,7 +37,6 @@ const ChallengeDetail = () => {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-8 h-screen">
-      {/* CỘT TRÁI: ĐỀ BÀI (Bạn B trang trí ở đây) */}
       <div className="overflow-y-auto bg-white p-6 rounded-2xl shadow-sm">
         <h2 className="text-2xl font-black">{challenge?.name || "Đang tải tên bài..."}</h2>
         <div className="flex gap-2 my-4">
@@ -51,15 +45,12 @@ const ChallengeDetail = () => {
           </span>
         </div>
         <div className="prose text-slate-600">
-          {/* Mô tả bài tập */}
           <p>Cho một mảng số nguyên, hãy tính tổng...</p>
         </div>
       </div>
 
-      {/* CỘT PHẢI: TRÌNH SOẠN THẢO CODE & NỘP BÀI */}
       <div className="flex flex-col gap-4">
         <div className="flex-1 bg-slate-900 rounded-2xl overflow-hidden border-4 border-slate-800">
-           {/* Bạn B sẽ gắn Monaco Editor hoặc Textarea ở đây */}
            <textarea 
              className="w-full h-full bg-transparent text-white p-4 font-mono outline-none"
              value={code}

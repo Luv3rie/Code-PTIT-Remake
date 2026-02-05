@@ -1,0 +1,92 @@
+[
+  {
+    "id": "profile-001",
+    "student_id": "SV001",
+    "nickname": "Nguyễn Văn A",
+    "avatar_url": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><rect fill='%234F46E5' width='100' height='100'/><text x='50' y='55' font-size='40' font-weight='bold' text-anchor='middle' fill='white'>A</text></svg>",
+    "major_language": "C++",
+    "language_stats": {
+      "C++": 15,
+      "JavaScript": 8,
+      "Move": 3
+    },
+    "completed_challenges": [],
+    "badges_issued": {},
+    "last_submission": 1707000000000,
+    "total_score": 450,
+    "total_solved": 26,
+    "owner": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"
+  },
+  {
+    "id": "profile-002",
+    "student_id": "SV002",
+    "nickname": "Trần Thị B",
+    "avatar_url": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><rect fill='%2310B981' width='100' height='100'/><text x='50' y='55' font-size='40' font-weight='bold' text-anchor='middle' fill='white'>B</text></svg>",
+    "major_language": "JavaScript",
+    "language_stats": {
+      "C++": 5,
+      "JavaScript": 22,
+      "Move": 12
+    },
+    "completed_challenges": [],
+    "badges_issued": {},
+    "last_submission": 1706900000000,
+    "total_score": 620,
+    "total_solved": 39,
+    "owner": "0xabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcdefabcd"
+  },
+  {
+    "id": "profile-003",
+    "student_id": "SV003",
+    "nickname": "Lê Hoàng C",
+    "avatar_url": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><rect fill='%23F59E0B' width='100' height='100'/><text x='50' y='55' font-size='40' font-weight='bold' text-anchor='middle' fill='white'>C</text></svg>",
+    "major_language": "Move",
+    "language_stats": {
+      "C++": 2,
+      "JavaScript": 4,
+      "Move": 28
+    },
+    "completed_challenges": [],
+    "badges_issued": {},
+    "last_submission": 1706800000000,
+    "total_score": 750,
+    "total_solved": 34,
+    "owner": "0xfedcbafedcbafedcbafedcbafedcbafedcbafedcbafedcbafedcbafedcbafedcba"
+  },
+  {
+    "id": "profile-004",
+    "student_id": "SV004",
+    "nickname": "Phạm Minh D",
+    "avatar_url": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><rect fill='%238B5CF6' width='100' height='100'/><text x='50' y='55' font-size='40' font-weight='bold' text-anchor='middle' fill='white'>D</text></svg>",
+    "major_language": "C++",
+    "language_stats": {
+      "C++": 18,
+      "JavaScript": 10,
+      "Move": 5
+    },
+    "completed_challenges": [],
+    "badges_issued": {},
+    "last_submission": 1706700000000,
+    "total_score": 520,
+    "total_solved": 33,
+    "owner": "0x1111111111111111111111111111111111111111111111111111111111111111"
+  },
+  {
+    "id": "profile-005",
+    "student_id": "SV005",
+    "nickname": "Hoàng Thu E",
+    "avatar_url": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><rect fill='%23EC4899' width='100' height='100'/><text x='50' y='55' font-size='40' font-weight='bold' text-anchor='middle' fill='white'>E</text></svg>",
+    "major_language": "JavaScript",
+    "language_stats": {
+      "C++": 8,
+      "JavaScript": 25,
+      "Move": 15
+    },
+    "completed_challenges": [],
+    "badges_issued": {},
+    "last_submission": 1706600000000,
+    "total_score": 680,
+    "total_solved": 48,
+    "owner": "0x2222222222222222222222222222222222222222222222222222222222222222"
+  }
+]

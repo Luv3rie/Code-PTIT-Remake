@@ -1,0 +1,32 @@
+[
+  {
+    "id": "badge-001",
+    "language": "C++",
+    "rank": "Pointer Survivor"
+  },
+  {
+    "id": "badge-002",
+    "language": "C++",
+    "rank": "Memory God"
+  },
+  {
+    "id": "badge-003",
+    "language": "JavaScript",
+    "rank": "Async Master"
+  },
+  {
+    "id": "badge-004",
+    "language": "JavaScript",
+    "rank": "DOM Expert"
+  },
+  {
+    "id": "badge-005",
+    "language": "Move",
+    "rank": "Object Apprentice"
+  },
+  {
+    "id": "badge-006",
+    "language": "Move",
+    "rank": "Move Architect"
+  }
+]

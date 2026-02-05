@@ -7,8 +7,6 @@ import Profile from './pages/Profile';
 import Admin from './pages/Admin';
 import ChallengeDetail from './pages/ChallengeDetail';
 import { StudentProvider } from './contexts/StudentContext';
-
-// 1. IMPORT LINH KIỆN CỦA BẠN C
 import ConnectWalletCustom from './components/ConnectWalletCustom';
 
 function App() {
@@ -16,7 +14,6 @@ function App() {
     <StudentProvider>
     <Router>
       <div className="min-h-screen bg-slate-50">
-        {/* Menu điều hướng */}
         <nav className="bg-slate-900 text-white p-4 flex justify-between items-center shadow-lg">
           <div className="text-2xl font-black text-blue-400">PTIT-SUI</div>
           <div className="flex gap-6 font-bold text-xs">
@@ -26,19 +23,15 @@ function App() {
             <Link to="/profile" className="hover:text-blue-400">PROFILE</Link>
             <Link to="/admin" className="text-red-400 border-l pl-6 border-slate-700">ADMIN</Link>
           </div>
-
-          {/* 2. THAY THẾ NÚT TĨNH BẰNG NÚT CỦA BẠN C */}
           <ConnectWalletCustom />
           
         </nav>
-
-        {/* Nội dung trang */}
         <div className="container mx-auto py-10">
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/challenges" element={<Challenges />} />
-            <Route path="/challenges/:lang" element={<ChallengeDetail />} />
+            <Route path="/challenges/:id" element={<ChallengeDetail />} />
             <Route path="/badges" element={<Badges />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/admin" element={<Admin />} />

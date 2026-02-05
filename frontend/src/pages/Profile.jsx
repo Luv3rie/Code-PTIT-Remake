@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// Thay đổi dòng này: Import useStudent thay vì StudentContext
 import { useStudent } from '../contexts/StudentContext'; 
 import { useSignAndExecuteTransaction } from '@mysten/dapp-kit';
 import { Transaction } from '@mysten/sui/transactions';
@@ -8,14 +7,12 @@ const Profile = () => {
   const { profile, refetchProfile, isLoading } = useStudent();
   const { mutate: signAndExecute } = useSignAndExecuteTransaction();
 
-  // State cục bộ để bạn B gắn vào các ô Input
   const [formData, setFormData] = useState({
     nickname: '',
     avatar_url: '',
     major_language: ''
   });
 
-  // Cập nhật state khi profile từ Context đã load xong
   useEffect(() => {
     if (profile) {
       setFormData({
@@ -26,14 +23,13 @@ const Profile = () => {
     }
   }, [profile]);
 
-  // Hàm gọi Smart Contract update_profile
   const handleUpdate = () => {
     const tx = new Transaction();
     
     tx.moveCall({
       target: `${import.meta.env.VITE_PACKAGE_ID}::code_ptit::update_profile`,
       arguments: [
-        tx.object(profile.id.id), // ID của StudentProfile object
+        tx.object(profile.id.id),
         tx.pure.string(formData.nickname),
         tx.pure.string(formData.avatar_url),
         tx.pure.string(formData.major_language),
@@ -43,14 +39,13 @@ const Profile = () => {
     signAndExecute({ transaction: tx }, {
       onSuccess: () => {
         alert("Cập nhật hồ sơ thành công!");
-        refetchProfile(); // Load lại dữ liệu mới nhất
+        refetchProfile();
       },
       onError: (err) => alert("Lỗi cập nhật: " + err.message)
     });
   };
 
   if (isLoading) return <div className="p-20 text-center">Đang tải dữ liệu ví...</div>;
-  if (!profile) return <div className="p-20 text-center text-orange-500">Bạn chưa có hồ sơ. Hãy liên hệ Admin để tạo!</div>;
 
   return (
     <div className="p-10 max-w-2xl mx-auto">
@@ -58,7 +53,6 @@ const Profile = () => {
         <h1 className="text-3xl font-black text-slate-800 mb-8 border-b pb-4">CHỈNH SỬA HỒ SƠ</h1>
         
         <div className="space-y-6">
-          {/* Bạn B sẽ thêm label và style cho các div này */}
           <div>
             <label className="block text-sm font-bold text-slate-700 mb-2">Nickname</label>
             <input 
